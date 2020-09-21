@@ -1,0 +1,112 @@
+<!DOCTYPE hmtl>
+<html>
+    <head>
+        <title>Music beats</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+           <div class="container">
+            <h1 class="display-1 text-center text-white">Play Some Music </h1>
+            <h3 class="text-center text-white">Press these keys on your keyboard</h3>
+           </div>
+           <div class="container mt-5 text-white">
+                <div class="row">
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="A">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">A</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="B">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">B</span>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 keys col-sm-4 mt-5 mb-5" data-key="C">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">C</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="D">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">D</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="E">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">E</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="F">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">F</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="G">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">G</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="H">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">H</span>
+                        </div>
+                    </div>
+                    <div class="col keys col-md-3 col-sm-4 mt-5 mb-5" data-key="I">
+                        <div class="key bg-dark">
+                            <span style="font-size: 5rem;">I</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        
+  <audio data-key="A" src="sounds/clap.wav"></audio>
+  <audio data-key="B" src="sounds/hihat.wav"></audio>
+  <audio data-key="C" src="sounds/kick.wav"></audio>
+  <audio data-key="D" src="sounds/openhat.wav"></audio>
+  <audio data-key="E" src="sounds/boom.wav"></audio>
+  <audio data-key="F" src="sounds/ride.wav"></audio>
+  <audio data-key="G" src="sounds/snare.wav"></audio>
+  <audio data-key="H" src="sounds/tom.wav"></audio>
+  <audio data-key="I" src="sounds/tink.wav"></audio>
+
+
+  <script>
+      keys  =  Array.from(document.querySelectorAll(".keys"))
+      window.addEventListener("keydown",playKeydown)
+      keys.forEach(key=>key.addEventListener("mouseover",play))
+      keys.forEach(key=>key.addEventListener("click",play))
+      keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+      keys.forEach(key=>key.addEventListener("touchmove",play))
+
+      function play(e){
+         keyValue = e.srcElement.childNodes[1].innerText
+         const audio = document.querySelector(`audio[data-key="${keyValue}"]`);
+         audio.currentTime = 0
+         audio.play()
+      }
+      function playKeydown(e){
+         keyValue = e.key.toUpperCase()
+         const audio = document.querySelector(`audio[data-key="${keyValue}"]`);
+         const key = document.querySelector(`div[data-key="${keyValue}"]`);
+         if(!audio) return
+         audio.currentTime = 0
+         audio.play()
+
+         console.log(key.childNodes[1].classList.add("keypress"))
+      }
+      function removeTransition(e) {
+        if (e.propertyName !== 'transform') return;
+        e.target.classList.remove('keypress');
+      }
+      function playTouch(e){
+          console.log(e)
+      }
+  </script>
+    </body>
+
+</html>
